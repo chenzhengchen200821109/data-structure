@@ -3,6 +3,9 @@
 
 #include <bitset>
 
+// The class template bitset represents a fixed-size sequence of N bits.
+// Bitsets can be manipulated by standard logic operators and converted 
+// to and from strings and integers.
 template<size_t N>
 class Bitmap
 {
@@ -34,6 +37,5 @@ bool Bitmap<N>::test(int i) const
     size_t pos = set_.size() - i - 1;
     return set_.test(pos);
 }
-
 
 #endif

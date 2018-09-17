@@ -2,6 +2,7 @@
 #define _VECTOR_H
 #include <cassert>
 #include <cstdlib>
+#include "PQ_ComplHeap.h"
 
 template <typename T> static bool lt(T *a, T *b)
 {
@@ -337,5 +338,16 @@ bool majority(Vector<T> A, int& maj)
 {
     maj = majEleCandidate(A);
     return majEleCheck(A, maj);
+}
+
+template<typename T>
+void Vector<T>::heapSort(int lo, int hi)
+{
+    heapify(elem_, lo, hi);
+    while (hi - lo > 1) {
+        hi--;
+        std::swap(elem_[lo], elem_[hi]);
+        percolateDown(elem_, hi - lo, lo);
+    }
 }
 #endif
