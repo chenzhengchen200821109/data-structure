@@ -307,38 +307,7 @@ void Vector<T>::sort(int lo, int hi)
 }
 
 
-template<typename T>
-T majEleCandidate(Vector<T> A)
-{
-    T maj;
-    
-    for (int c = 0, i = 0; i < A.size(); i++) {
-        if (c == 0) {
-            maj = A[i];
-            c = 1;
-        } else
-            (maj == A[i]) ? c++ : c--;
-    }
-    return maj;
-}
 
-template<typename T>
-bool majEleCheck(Vector<T> A, T maj)
-{
-    int occurrence = 0;
-    for (int i = 0; i < A.size(); i++) {
-        if (A[i] == maj)
-            occurrence++;
-    }
-    return 2 * occurrence > A.size();
-}
-
-template<typename T>
-bool majority(Vector<T> A, int& maj)
-{
-    maj = majEleCandidate(A);
-    return majEleCheck(A, maj);
-}
 
 template<typename T>
 void Vector<T>::heapSort(int lo, int hi)
