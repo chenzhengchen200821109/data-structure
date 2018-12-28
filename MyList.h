@@ -1,9 +1,10 @@
-#if !defined MYLIST_H
-#define MYLIST_H
+#ifndef _MYLIST_H
+#define _MYLIST_H
 
 #include "MyListNode.h"
 
-template<typename T> class MyList
+template<typename T> 
+class MyList
 {
     private:
         int _size;

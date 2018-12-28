@@ -4,26 +4,30 @@
 #include <cstdlib>
 #include "MyQueue.h"
 
+// definition of heigth: Height(v) = Height(subtree(v))
+// definition of depth: the number of nodes that passed through from v to root
 #define stature(p) ((p) ? (p)->height_ : -1)
 //typedef enum { RB_RED, RB_BLACK } RBColor;
 
 #define isRoot(x) (!((x).parent_))
-#define isLChild(x) (!IsRoot(x) && (&(x) == (((x).parent_)->lChild_)))
-#define isRChild(x) (!IsRoot(x) && (&(x) == (((x).parent_)->rChild_)))
+#define isLChild(x) (!isRoot(x) && (&(x) == (((x).parent_)->lChild_)))
+#define isRChild(x) (!isRoot(x) && (&(x) == (((x).parent_)->rChild_)))
 #define hasParent(x) (!isRoot)
 #define hasLChild(x) ((x).lChild_)
 #define hasRChild(x) ((x).rChild_)
 #define hasChild(x) (hasLChild(x) || hasRChild(x))
 #define hasBothChild(x) (hasLChild(x) && hasRChild(x))
 #define isLeaf(x) (!hasChild(x))
+// given a node and return a pointer from its parent that points to the node
+#define fromParentTo(x) (isRoot(x) ? root_ : (isLChild(x) ? (x).parent_->lChild_ : (x).parent_->rChild_))
 
 // binary tree node
 template<typename T>
 class BinNode
 {
     public:
-        BinNode() : parent_(0), lChild_(0), rChild_(0), height_(0) {}
-        BinNode(T e, BinNode<T>* p = 0, BinNode<T>* lc = 0, BinNode<T>* rc = 0, int h = 0) : data_(e), parent_(p), lChild_(lc), rChild_(rc), height_(h) {}
+        BinNode() : parent_(0), lChild_(0), rChild_(0), height_(0), depth_(0) {}
+        BinNode(T e, BinNode<T>* p = 0, BinNode<T>* lc = 0, BinNode<T>* rc = 0, int h = 0, int d = 0) : data_(e), parent_(p), lChild_(lc), rChild_(rc), height_(h), depth_(d) {}
         // insert a node as current node's left child
         BinNode<T>* insertAsLC(T const& e);
         // insert a node as current node's right child
@@ -46,6 +50,7 @@ class BinNode
         BinNode<T>* lChild_;
         BinNode<T>* rChild_;
         int height_;
+        int depth_;
         //int npl;
         //RBColor color; // used for red-black tree
 };

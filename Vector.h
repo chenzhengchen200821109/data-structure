@@ -350,4 +350,5 @@ void Vector<T>::heapSort(int lo, int hi)
         percolateDown(elem_, hi - lo, lo);
     }
 }
+
 #endif

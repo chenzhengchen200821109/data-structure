@@ -1,11 +1,10 @@
 #ifndef _MYQUEUE_H
 #define _MYQUEUE_H
 
-#include <list>
-#include <cassert>
+#include "MyList.h"
 
 template<typename T>
-class Queue
+class MyQueue: public MyList<T>
 {
     public:
         int size() const;
@@ -13,41 +12,36 @@ class Queue
         void enqueue(T const& e);
         T dequeue();
         T& front() const;
-    private:
-        std::list<T> list_;
 };
 
 template<typename T>
-int Queue<T>::size() const
+int MyQueue<T>::size() const
 {
-    return list_.size();
+    return MyList<T>::size();
 }
 
 template<typename T>
-bool Queue<T>::empty() const
+bool MyQueue<T>::empty() const
 {
-    return list_.empty();
+    return MyList<T>::empty();
 }
 
 template<typename T>
-void Queue<T>::enqueue(T const& e)
+void MyQueue<T>::enqueue(T const& e)
 {
-    list_.push_back(e);
+    MyList<T>::insertAsLast(e);
 }
 
 template<typename T>
-T Queue<T>::dequeue()
+T MyQueue<T>::dequeue()
 {
-    assert(!empty()); // Should we really use assert here ???
-    T e = list_.front();
-    list_.pop_front();
-    return e;
+    MyList<T>::remove(MyList<T>::firstNode());
 }
 
 template<typename T>
-T& Queue<T>::front() const
+T& MyQueue<T>::front() const
 {
-    return list_.front();
+    return MyList<T>::firstNode()->data;
 }
 
 #endif

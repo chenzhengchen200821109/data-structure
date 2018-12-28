@@ -1,5 +1,5 @@
-#if !defined MiniStack_h
-#define MiniStack_h
+#if !defined MyStack_h
+#define MyStack_h
 
 #include "MyVector.h"
 

@@ -1,44 +1,44 @@
-#if !defined MiniVector_h
-#define MiniVector_h
+#if !defined MyVector_h
+#define MyVector_h
 
 #include <cassert>
-typedef int Rank;
+
 #define DEFAULT_CAPACITY 3
 
 template<typename T> 
 class Vector
 {
     private:
-        Rank _size;
+        int _size;
         int _capacity;
         T* _elem;
-        void copyFrom(T* const A, Rank lo, Rank hi);
+        void copyFrom(T* const A, int lo, int hi);
         void expand();
         void shrink();
     public:
         // constructors and destructor
         Vector(int c = DEFAULT_CAPACITY) { _elem = new T[_capacity = c]; _size = 0; }
-        Vector(T* A, Rank lo, Rank hi) { copyFrom(A, lo, hi); }
-        Vector(T* A, Rank n) { copyFrom(A, 0, n); }
-        Vector(const Vector<T>& V, Rank lo, Rank hi) { copyFrom(V._elem, lo, hi); }
+        Vector(T* A, int lo, int hi) { copyFrom(A, lo, hi); }
+        Vector(T* A, int n) { copyFrom(A, 0, n); }
+        Vector(const Vector<T>& V, int lo, int hi) { copyFrom(V._elem, lo, hi); }
         Vector(const Vector<T>& V) { copyFrom(V._elem, 0, V._size); }
         ~Vector() { delete [] _elem; }
         // readable interface
-        Rank size() const { return _size; }
+        int size() const { return _size; }
         bool empty() const { return _size <= 0; }
-        Rank find(const T& e) const { return find(e, 0, (Rank)_size); }
-        Rank find(const T& e, Rank lo, Rank hi) const;
+        int find(const T& e) const { return find(e, 0, (int)_size); }
+        int find(const T& e, int lo, int hi) const;
         // writable interface
-        T& operator[](Rank r) const;
+        T& operator[](int r) const;
         Vector<T>& operator=(const Vector<T>&); // assignment constructor
-        T remove(Rank r);
-        int remove(Rank lo, Rank hi);
-        Rank insert(Rank r, const T& e);
-        Rank insert(const T& e) { return insert(_size, e); }
+        T remove(int r);
+        int remove(int lo, int hi);
+        int insert(int r, const T& e);
+        int insert(const T& e) { return insert(_size, e); }
 };
 
 template<typename T>
-void Vector<T>::copyFrom(T* const A, Rank lo, Rank hi)
+void Vector<T>::copyFrom(T* const A, int lo, int hi)
 {
     _elem = new T[_capacity = 2*(hi - lo)];
     _size = 0;
@@ -59,7 +59,7 @@ void Vector<T>::expand()
 }
 
 template<typename T>
-Rank Vector<T>::find(const T& e, Rank lo, Rank hi) const
+int Vector<T>::find(const T& e, int lo, int hi) const
 {
     assert(0 <= lo);
     assert(lo < hi);
@@ -81,7 +81,7 @@ void Vector<T>::shrink()
 }
 
 template<typename T>
-T& Vector<T>::operator[](Rank r) const
+T& Vector<T>::operator[](int r) const
 {
     assert(r >= 0);
     assert(r < _size);
@@ -100,7 +100,7 @@ Vector<T>& Vector<T>::operator=(const Vector<T>& V)
 }
 
 template<typename T>
-T Vector<T>::remove(Rank r)
+T Vector<T>::remove(int r)
 {
     assert(r >= 0);
     assert(r < _size);
@@ -110,7 +110,7 @@ T Vector<T>::remove(Rank r)
 }
 
 template<typename T>
-int Vector<T>::remove(Rank lo, Rank hi)
+int Vector<T>::remove(int lo, int hi)
 {
     assert(lo >= 0);
     assert(hi >= lo);
@@ -124,7 +124,7 @@ int Vector<T>::remove(Rank lo, Rank hi)
 }
 
 template<typename T>
-Rank Vector<T>::insert(Rank r, const T& e)
+int Vector<T>::insert(int r, const T& e)
 {
     assert(r >= 0);
     assert(r <= _size);
