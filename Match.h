@@ -1,6 +1,7 @@
 #ifndef _MATCH_H
 #define _MATCH_H
 #include <cstring>
+#include "Vector.h"
 
 /***************************************************
  * Text     : 0 1 2 . . . i-j . . . i . . n-1
@@ -169,6 +170,42 @@ int match_kr(char* P, char* T)
         if (++k > n - m) return k;
         else updateHash(hashT, T, m, k, Dm);
     }
+}
+
+/**
+ * k-selction problem.
+ */
+template<typename T>
+T majEleCandidate(Vector<T> A)
+{
+    T maj;
+    
+    for (int c = 0, i = 0; i < A.size(); i++) {
+        if (c == 0) {
+            maj = A[i];
+            c = 1;
+        } else
+            (maj == A[i]) ? c++ : c--;
+    }
+    return maj;
+}
+
+template<typename T>
+bool majEleCheck(Vector<T> A, T maj)
+{
+    int occurrence = 0;
+    for (int i = 0; i < A.size(); i++) {
+        if (A[i] == maj)
+            occurrence++;
+    }
+    return 2 * occurrence > A.size();
+}
+
+template<typename T>
+bool majority(Vector<T> A, int& maj)
+{
+    maj = majEleCandidate(A);
+    return majEleCheck(A, maj);
 }
 
 #endif

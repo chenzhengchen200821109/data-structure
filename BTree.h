@@ -59,6 +59,28 @@ BTNode<T>* BTree<T>::insert(const T& e)
 }
 
 template<typename T>
+BTNode<T>* BTree<T>::remove(const T& e)
+{
+    BTNode<T>* v = search(e);
+    if (!v)
+        return false;
+    int r = v->data.search(e);
+    if (v->child[0]) {
+        BTNode<T>* u = v->child[r+1];
+        while (u->child[0])
+            u = u->child[0];
+        v->data[r] = u->data[0];
+        v = u;
+        r = 0;
+    }
+    v->data.remove(r);
+    v->child.remove(r);
+    size_--;
+    solveUnderFlow(v);
+    return true;
+}
+
+template<typename T>
 void BTree<T>::solveOverFlow(BTNode<T>* v)
 {
     if (order_ >= v->child_.size()) return;
