@@ -1,5 +1,5 @@
-#ifndef _BTREE_H
-#define _BTREE_H
+#ifndef _BTNODE_H
+#define _BTNODE_H
 
 #include "Vector.h"
 
