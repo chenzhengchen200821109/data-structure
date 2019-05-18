@@ -2,6 +2,7 @@
 #define _LIST_H
 
 #include "ListNode.h"
+#include <algorithm>
 
 template<typename T>
 class List
@@ -61,6 +62,7 @@ class List
         ListNode<T>* insertBefore(ListNode<T>* p, T const& e);
         ListNode<T>* insertAfter(ListNode<T>* p, T const& e);
         T remove(ListNode<T>* p);
+        void reverse();
         //void merge(List<T>& list)
         //{
         //    merge(first(), _size, list, list.first(), list.size());
@@ -226,6 +228,24 @@ int List<T>::deduplicate()
     }
     return oldSize - _size;
 } */
+
+/*
+ * reverse a list
+ */
+template<typename T>
+void List<T>::reverse()
+{
+    ListNode<T>* node = header;
+    while (node)
+    {
+        ListNode<T>* Next = node->succ;
+        ListNode<T>* Prev = node->pred;
+        node->pred = Next;
+        node->succ = Prev;
+        node = Next;
+    }
+    std::swap(header, trailer);
+}
 
 template<typename T>
 void List<T>::traverse(void (*visit)(T&))

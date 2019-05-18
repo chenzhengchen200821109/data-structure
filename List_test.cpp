@@ -26,6 +26,9 @@ int main()
 
     list->traverse(&visit);
     std::cout << std::endl;
+    list->reverse();
+    list->traverse(&visit);
+    std::cout << std::endl;
 
     return 0;
 }
